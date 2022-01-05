@@ -11,7 +11,7 @@
     CHECK - Bir sutundaki tüm verilerin belirlenen özel bir şartı sağlamasını garanti eder. 
     DEFAULT - Herhangi bir değer atanamadığında Başlangıç değerinin atanmasını sağlar.
  ========================================================================================*/
- 
+ use sys;
  CREATE TABLE calisanlar
     (
         id CHAR(5) PRIMARY KEY, -- not null+ unique
@@ -101,5 +101,7 @@
       
       DELETE FROM talebeler
     WHERE id = 124;
+    
     select *from talebeler;
-      
+    select * from notlar;
+	select * from talebeler,notlar where talebeler.id=notlar.talebe_id;
