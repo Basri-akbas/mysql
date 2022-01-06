@@ -27,3 +27,4 @@ select name from  student;
 Tablo silme
 ==============================*/
 Drop Table student;
+

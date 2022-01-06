@@ -67,6 +67,57 @@ order by maks desc;
  from manav 
  group by isim,urun_adi
  order by isim desc;
+ 
+ /* ----------------------------------------------------------------------------
+  ORNEK5: kisi ismine ve urun adına göre (gruplayarak) satılan ürünlerin toplamını bulan ve
+  ve bu toplam değeri 3 ve fazlası olan kayıtları toplam urun miktarlarina göre
+  ters siralayarak listeyen sorguyu yazınız.
+ -----------------------------------------------------------------------------*/ 
+select isim,urun_adi,sum(urun_miktari) as toplam 
+from manav
+group by isim,urun_adi
+having toplam>=3
+order by toplam desc;
 
+-- aggregate fonksiyonlari ile ilgili bir koşul koymak için 
+ -- group by dan sonra having cümleciği kullanilir.
+ 
+ /* ----------------------------------------------------------------------------
+  ORNEK6: satılan urun_adi'na göre (gruplayarak) MAX urun sayılarını sıralayarak listeleyen 
+  sorguyu yazınız. NOT: Sorgu, sadece MAKS urun_miktari MIN urun_miktarına 
+  eşit olmayan kayıtları listelemelidir.
+ -----------------------------------------------------------------------------*/   
+ 
+ select urun_adi, max(urun_miktari) maks -- maks yerine istedigini yaz
+from manav 
+group by urun_adi
+having maks!=min(urun_miktari)  -- != yerine <> buda kullanilabilir
+order by maks; 
+
+/*============================= DISTINCT =====================================
     
+    DISTINCT cümleciği bir SORGU ifadesinde benzer olan satırları filtrelemek
+    için kullanılır. Dolayısıyla seçilen sutun yada sutunlar için benzersiz veri
+    içeren satırlar oluşturmaya yarar.
+   
+    SYNTAX
+    -------
+    SELECT DISTINCT sutun_adi1, sutun_adi2, sutun_adi3
+    FROM  tablo_adı;
+==============================================================================*/
+/* ----------------------------------------------------------------------------
+  ORNEK1: satılan farklı meyve türlerinin sayısını listeleyen sorguyu yazınız.
+-----------------------------------------------------------------------------*/ 
+select count(distinct(urun_adi)) from manav;
+
+/* -----------------------------------------------------------------------------
+  ORNEK2: satılan meyve + isimlerin farklı olanlarını listeyen sorguyu yazınız.
+------------------------------------------------------------------------------*/
+    select distinct urun_adi,isim from manav;
     
+   /* ----------------------------------------------------------------------------
+  ORNEK3: satılan meyvelerin urun_miktarlarinin benzersiz  olanlarının 
+  toplamlarini listeyen sorguyu yazınız.
+-----------------------------------------------------------------------------*/  
+ select sum(distinct urun_miktari) as miktar from manav; 
+ 
